@@ -59,10 +59,6 @@ python3 check_length.py
 This prints the number of observations in each parquet file.
 
 ## Run the preprocessing
-Run:
-```bash
-python3 run_preprocessing.py
-```
 This script uses: Select_multiopp_split_plot.py and Select_numbered_split_plot.py.<br>
 In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze.<br>
 
@@ -72,6 +68,12 @@ REQUESTED = [
 ("2026-02-27", "obs_sbn_X05_2026-02-27.parquet"), 
 ]
 ```
+
+Run:
+```bash
+python3 run_preprocessing.py
+```
+
 After starting the script, it will ask:<br>
 Run processing for ```{parquet_file(s)_number} non-zero parquet file(s)? [Y/N]```<br>
 Enter:
