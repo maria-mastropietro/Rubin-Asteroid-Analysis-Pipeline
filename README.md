@@ -25,7 +25,7 @@ rubin_mpc/
     └── YYYY-MM-DD/
         └── parquet/
             └── obs_sbn_X05_YYYY-MM-DD.parquet
-Asteroid-Wrapper-Analysis-main
+Asteroid-Wrapper-Analysis-main/
 └──Asteroid_LSM.py
 └──epochs.py
 ...
