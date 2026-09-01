@@ -15,7 +15,8 @@ This will create the rubin_mpc folder.<br>
 The WrapperAnalysis folder must be saved in the same location as the rubin_mpc folder.
 
 ## Alternative to download the parquet files from the Asteroid Institute
-Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: https://b612.ai/
+Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: ```https://b612.ai/rubin-mpc-downloads/``` and download the Daily Partitions parquet file.
+
 
 If the files are downloaded manually, the folder structure must be created as:
 
@@ -25,12 +26,6 @@ rubin_mpc/
     └── YYYY-MM-DD/
         └── parquet/
             └── obs_sbn_X05_YYYY-MM-DD.parquet
-```
-
-For example, for the parquet file from `2026-02-27`:
-
-```text
-D:\gihub project\rubin_mpc\parquet\2026-02-27\parquet\obs_sbn_X05_2026-02-27.parquet
 ```
 
 The date folder must match the date in the parquet filename.
