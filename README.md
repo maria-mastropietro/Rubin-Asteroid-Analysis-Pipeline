@@ -181,14 +181,14 @@ Use base_period_days_before_doubling to force the Fourier on one peak period:
 ```bash
 best_days = (
     try_float(info.get("base_period_days_before_doubling "))
-...
+    ...
 )
 ```
 To not force it, use best_period_days:
 ```bash
 best_days = (
     try_float(info.get("best_period_days"))
-...
+    ...
 )
 ```
 
