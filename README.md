@@ -6,6 +6,7 @@ First authenticate with Google Cloud:
 gcloud auth login
 
 Then download the Rubin MPC parquet files:
+```bash
 gcloud storage rsync gs://asteroid-institute-public/production/rubin/mpc/obs_sbn/daily/ ./rubin_mpc/parquet --recursive --exclude='^((?!\.parquet$).)*$'
 
 This will create the rubin_mpc folder.
