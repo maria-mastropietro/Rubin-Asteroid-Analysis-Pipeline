@@ -180,25 +180,25 @@ This runs the wrapper Asteroid_LSM.py for the objects in choose_lsm.txt.
 Use base_period_days_before_doubling to force the Fourier on one peak period:
 ```bash
 best_days = (
-        try_float(info.get("base_period_days_before_doubling "))
+    try_float(info.get("base_period_days_before_doubling "))
 ```
 To not force it, use best_period_days:
 ```bash
-    best_days = (
-        try_float(info.get("best_period_days"))
+best_days = (
+    try_float(info.get("best_period_days"))
 ```
 
 ## In Period_search_High_Order_Fourier.py:
 Use this to force the Fourier on one peak period:
 ```bash
-    #doubled = False
-    #reported_period = base_period
+#doubled = False
+#reported_period = base_period
 ```
 
 To not force it, use:
 ```bash
-    doubled = n_maxima == 1
-    reported_period = 2.0 * base_period if doubled else base_period
+doubled = n_maxima == 1
+reported_period = 2.0 * base_period if doubled else base_period
 ```
 
 
