@@ -94,7 +94,7 @@ python3 run_LSM.py
 ```
 This runs the wrapper Asteroid_LSM.py for the objects in choose_lsm.txt.
 
-# NOTES:
+# Notes:
 ## In Asteroid_physical_properties.py:
 Use base_period_days_before_doubling to force the Fourier on one peak period:
 ```bash
