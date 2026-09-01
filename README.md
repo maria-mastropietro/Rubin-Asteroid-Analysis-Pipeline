@@ -14,6 +14,27 @@ gcloud storage rsync gs://asteroid-institute-public/production/rubin/mpc/obs_sbn
 This will create the rubin_mpc folder.<br>
 The WrapperAnalysis folder must be saved in the same location as the rubin_mpc folder.
 
+## Alternative to download the parquet files from the Asteroid Institute
+Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: https://b612.ai/
+
+If the files are downloaded manually, the folder structure must be created as:
+
+```text
+rubin_mpc/
+└── parquet/
+    └── YYYY-MM-DD/
+        └── parquet/
+            └── obs_sbn_X05_YYYY-MM-DD.parquet
+```
+
+For example, for the parquet file from `2026-02-27`:
+
+```text
+D:\gihub project\rubin_mpc\parquet\2026-02-27\parquet\obs_sbn_X05_2026-02-27.parquet
+```
+
+The date folder must match the date in the parquet filename.
+
 ## Check the number of observations
 Run: 
 ```bash
@@ -32,8 +53,7 @@ In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet f
 Example: 
 ```bash
 REQUESTED = [ 
-("2026-04-24", "obs_sbn_X05_2026-04-24.parquet"), 
-("2026-04-27", "obs_sbn_X05_2026-04-27.parquet"), 
+("2026-02-27", "obs_sbn_X05_2026-02-27.parquet"), 
 ]
 ```
 After starting the script, it will ask:<br>
