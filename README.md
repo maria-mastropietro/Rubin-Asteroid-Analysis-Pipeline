@@ -46,6 +46,7 @@ The preprocessing step:<br>
 - classifies the asteroids into numbered asteroids and provisional asteroids;<br>
 - creates lightcurve plots;<br>
 - creates *_ALL.csv files.<br>
+
 Note: If the code is stopped before finishing, running it again will skip the objects already analyzed and continue from where it stopped.
 
 ## Check the epoch and observation requirements
