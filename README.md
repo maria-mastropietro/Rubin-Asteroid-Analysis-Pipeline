@@ -1,4 +1,4 @@
-# ASTEROID WRAPPER ANALYSIS
+# RUBIN-ASTEROID-ANALYSIS-PIPELINE
 
 ## Download the parquet files from the Asteroid Institute
 First authenticate with Google Cloud:
