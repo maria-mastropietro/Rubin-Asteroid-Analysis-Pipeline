@@ -2,6 +2,7 @@
 
 ## Download the parquet files from the Asteroid Institute
 First authenticate with Google Cloud:
+```bash
 gcloud auth login
 
 Then download the Rubin MPC parquet files:
