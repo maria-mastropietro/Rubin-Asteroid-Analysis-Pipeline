@@ -89,7 +89,22 @@ Note:
 If the code is stopped before finishing, running it again will skip the objects already analyzed and continue from where it stopped.
 
 ## Check the epoch and observation requirements
-Run:
+Before running epochs.py, check the value of:
+
+```python
+THRESHOLD = 30
+```
+The default value used in the analysis is 30, meaning that an object must have at least 30 observations in at least 2 bands.
+
+In some cases, a lower threshold can be useful. For example, for the objects in the 2026-02-27 parquet file, using:
+```python
+THRESHOLD = 10
+```
+is acceptable.
+
+If THRESHOLD = 30 returns 0 objects, try running the analysis again with THRESHOLD = 10.
+
+Then run:
 ```bash
 python3 epochs.py
 ```
