@@ -60,6 +60,11 @@ FIGSIZE = (7.2, 4.8)
 
 MJDREF = 2400000.5
 
+AU_KM = 149597870.700
+C_KM_S = 299792.458
+SECONDS_PER_DAY = 86400.0
+LIGHT_TIME_DAYS_PER_AU = AU_KM / C_KM_S / SECONDS_PER_DAY
+
 
 def normalize_band_label(x: str) -> str:
     if pd.isna(x):
@@ -302,6 +307,10 @@ def build_corrected_lightcurve(df: pd.DataFrame) -> pd.DataFrame:
     if out["pred_V"].notna().sum() == 0:
         raise RuntimeError("No interpolated Horizons V magnitudes were available.")
 
+    # Light-time correction (mirrors HOF's add_section31_preprocessing)
+    out["light_time_days"] = out["delta_au"] * LIGHT_TIME_DAYS_PER_AU
+    out["t_corr_mjd"] = out["mjd"] - out["light_time_days"]
+
     # Raw correction against predicted V
     out["corr_mag"] = out["mag"] - out["pred_V"]
 
@@ -354,7 +363,7 @@ def fit_multiband_periodogram(
     if len(use) < 10:
         raise RuntimeError("Too few inlier points for a period search.")
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     y = use["corr_mag_centered"].to_numpy(dtype=float)
     bands = use["band"].astype(str).to_numpy()
 
@@ -420,15 +429,16 @@ def fit_fourier_series(
             beta, residuals, rank, s = np.linalg.lstsq(Xw, yw, rcond=None)
             
             # Compute covariance matrix
+            w2 = w ** 2
             n_params = X.shape[1]
             dof = len(y) - n_params
             if dof > 0 and rank == n_params:
                 # Compute MSE in original data space: Σ w_i (y_i - ŷ_i)^2 / dof
                 yhat = X @ beta
-                mse = np.sum(w * (y - yhat)**2) / dof
+                mse = np.sum(w2 * (y - yhat)**2) / dof
                 if np.isfinite(mse) and mse > 0:
                     # cov(beta) = mse * (X^T W X)^(-1)
-                    XtWX = X.T @ (w[:, None] * X)
+                    XtWX = X.T @ (w2[:, None] * X)
                     try:
                         cov = mse * np.linalg.inv(XtWX)
                         return beta, cov
@@ -555,7 +565,7 @@ def evaluate_candidate_minima(
     """
     use = df[df["is_inlier"]].copy()
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     y = use["corr_mag_centered"].to_numpy(dtype=float)
 
     if "rmsmag" in use.columns:
@@ -741,20 +751,21 @@ def fit_shared_fourier_with_band_offsets(
         good = np.isfinite(dy) & (dy > 0)
         if np.any(good):
             w = np.ones_like(y)
-            w[good] = 1.0 / dy[good]
+            w[good] = 1.0 / dy[good] 
             Xw = X * w[:, None]
             yw = y * w
             beta_all, residuals, rank, s = np.linalg.lstsq(Xw, yw, rcond=None)
             
             # Compute covariance matrix
+            w2 = w ** 2
             n_params = X.shape[1]
             dof = len(y) - n_params
             if dof > 0 and rank == n_params:
                 # Compute MSE in original data space: Σ w_i (y_i - ŷ_i)^2 / dof
                 yhat = X @ beta_all
-                mse = np.sum(w * (y - yhat)**2) / dof
+                mse = np.sum(w2 * (y - yhat)**2) / dof
                 if np.isfinite(mse) and mse > 0:
-                    XtWX = X.T @ (w[:, None] * X)
+                    XtWX = X.T @ (w2[:, None] * X)
                     try:
                         cov_all = mse * np.linalg.inv(XtWX)
                         n_common = 1 + 2 * order
@@ -828,7 +839,7 @@ def plot_phased_lightcurve(
     target_name: Optional[str] = None,
 ) -> None:
     use = df[df["is_inlier"]].copy()
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     y = use["corr_mag_centered"].to_numpy(dtype=float)
     b = use["band"].astype(str).to_numpy()
 
@@ -1032,7 +1043,7 @@ def main() -> None:
     best_hours = best.period_days * 24.0
     use = merged[merged["is_inlier"]].copy()
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     phase = phase_fold(t, best.period_days, t0=np.nanmin(t))
     bands_arr = use["band"].astype(str).to_numpy()
 

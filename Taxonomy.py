@@ -55,6 +55,12 @@ FIGSIZE = (7.2, 4.8)
 
 MJDREF = 2400000.5
 
+AU_KM = 149597870.700
+C_KM_S = 299792.458
+SECONDS_PER_DAY = 86400.0
+LIGHT_TIME_DAYS_PER_AU = AU_KM / C_KM_S / SECONDS_PER_DAY
+
+
 SUN_APP_MAGS = {
     "g": -26.34,
     "r": -27.04,
@@ -247,6 +253,10 @@ def build_corrected_lightcurve(df: pd.DataFrame) -> pd.DataFrame:
     if out["pred_V"].notna().sum() == 0:
         raise RuntimeError("No interpolated Horizons V magnitudes were available.")
 
+    # Light-time correction (mirrors HOF's add_section31_preprocessing)
+    out["light_time_days"] = out["delta_au"] * LIGHT_TIME_DAYS_PER_AU
+    out["t_corr_mjd"] = out["mjd"] - out["light_time_days"]
+    
     out["corr_mag"] = out["mag"] - out["pred_V"]
     med = np.nanmedian(out["corr_mag"].to_numpy(dtype=float))
     out["corr_mag_centered"] = out["corr_mag"] - med
@@ -484,7 +494,7 @@ def fit_multiband_periodogram(
     if len(use) < 10:
         raise RuntimeError("Too few inlier points for a period search.")
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     bands = use["band"].astype(str).to_numpy()
     ws = get_weighted_series(use, "corr_mag_centered")
 
@@ -588,7 +598,7 @@ def fit_shared_multiband_fourier_with_offsets(
     if len(use) < 5:
         raise RuntimeError("Too few inlier points for color fitting.")
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     bands = use["band"].astype(str).to_numpy()
     ws = get_weighted_series(use, "corr_mag")
 
@@ -603,14 +613,15 @@ def fit_shared_multiband_fourier_with_offsets(
         beta, residuals, rank, s = np.linalg.lstsq(Xw, yw, rcond=None)
         
         # Compute covariance matrix
+        w2 = w ** 2
         n_params = X.shape[1]
         dof = len(yw) - n_params
         if dof > 0 and rank == n_params:
             # Compute MSE in original data space: Σ w_i (y_i - ŷ_i)^2 / dof
             yhat = X @ beta
-            mse = np.sum(w * (ws.values - yhat)**2) / dof
+            mse = np.sum(w2 * (ws.values - yhat)**2) / dof
             if np.isfinite(mse) and mse > 0:
-                XtWX = X.T @ (w[:, None] * X)
+                XtWX = X.T @ (w2[:, None] * X)
                 try:
                     cov = mse * np.linalg.inv(XtWX)
                 except np.linalg.LinAlgError:
@@ -790,7 +801,7 @@ def evaluate_candidate_minima(
     use = df[df["is_inlier"]].copy()
     ws = get_weighted_series(use, "corr_mag_centered")
 
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     phase = phase_fold(t, period_days, t0=np.nanmin(t))
     beta = fit_fourier_series(phase, ws.values, order=order, dy=ws.errors)
 
@@ -934,7 +945,7 @@ def plot_phased_lightcurve(
 ) -> None:
     use = df[df["is_inlier"]].copy()
     ws = get_weighted_series(use, "corr_mag_centered")
-    t = use["mjd"].to_numpy(dtype=float)
+    t = use["t_corr_mjd"].to_numpy(dtype=float)
     y = ws.values
     b = use["band"].astype(str).to_numpy()
 
