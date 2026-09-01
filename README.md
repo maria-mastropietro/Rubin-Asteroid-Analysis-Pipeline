@@ -32,6 +32,7 @@ The date folder must match the date in the parquet filename.
 ## Create a virtual environment
 ```bash
 python3 -m venv env_asteroid
+```
 
 Activate it:
 
