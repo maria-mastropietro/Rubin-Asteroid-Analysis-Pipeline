@@ -36,7 +36,7 @@ REQUESTED = [
 ]
 ```
 After starting the script, it will ask:<br>
-Run processing for {parquet_file(s)_number} non-zero parquet file(s)? [Y/N]<br>
+Run processing for ```bash{parquet_file(s)_number} non-zero parquet file(s)? [Y/N]```<br>
 Enter:
 ```bash
 Y
