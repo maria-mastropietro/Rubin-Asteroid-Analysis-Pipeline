@@ -59,7 +59,6 @@ python3 check_length.py
 This prints the number of observations in each parquet file.
 
 ## Run the preprocessing
-This script uses: Select_multiopp_split_plot.py and Select_numbered_split_plot.py.<br>
 In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze.<br>
 
 Example: 
