@@ -17,7 +17,6 @@ The WrapperAnalysis folder must be saved in the same location as the rubin_mpc f
 ## Alternative to download the parquet files from the Asteroid Institute
 Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: ```https://b612.ai/rubin-mpc-downloads/``` and download the Daily Partitions parquet file.
 
-
 If the files are downloaded manually, the folder structure must be created as:
 
 ```text
@@ -29,6 +28,27 @@ rubin_mpc/
 ```
 
 The date folder must match the date in the parquet filename.
+
+## Create a virtual environment
+```bash
+python3 -m venv env_asteroid
+
+Activate it:
+
+Linux/macOS
+```bash
+source env_asteroid/bin/activate
+```
+
+Windows
+```bash
+env_asteroid\Scripts\activate
+```
+
+Install the required packages:
+```bash
+pip install -r requirements.txt
+```
 
 ## Check the number of observations
 Run: 
