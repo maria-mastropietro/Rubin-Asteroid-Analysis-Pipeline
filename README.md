@@ -29,6 +29,22 @@ rubin_mpc/
 
 The date folder must match the date in the parquet filename.
 
+The required folder structure can also be created from the terminal.
+
+**Linux:**
+```bash
+mkdir -p rubin_mpc/parquet/YYYY-MM-DD/parquet
+mv obs_sbn_X05_YYYY-MM-DD.parquet rubin_mpc/parquet/YYYY-MM-DD/parquet/
+```
+
+**Windows Command Prompt:**
+```bat
+mkdir rubin_mpc\parquet\YYYY-MM-DD\parquet
+move obs_sbn_X05_YYYY-MM-DD.parquet rubin_mpc\parquet\YYYY-MM-DD\parquet\
+```
+
+Replace `YYYY-MM-DD` with the date of the parquet file.
+
 ## Create a virtual environment
 ```bash
 python3 -m venv env_asteroid
