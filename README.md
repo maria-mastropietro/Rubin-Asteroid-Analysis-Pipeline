@@ -152,6 +152,15 @@ python3 search_NEA_MBO.py
 ```
 This comments out the asteroids that are neither NEAs nor MBOs in choose_physical.txt and choose_lsm.txt.
 
+## Run the period analyses
+Before running the period-analysis scripts, check the contents of `choose_physical.txt` and `choose_lsm.txt`.
+
+If one of these files contains 0 objects, do not run the corresponding analysis script.
+
+For example:<br>
+- if `choose_physical.txt` is empty, do not run `run_physical_properties_batch.py`;<br>
+- if `choose_lsm.txt` is empty, do not run `run_LSM.py`.
+
 ## Run the physical-properties analysis
 Run:
 ```bash
