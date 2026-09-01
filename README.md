@@ -11,7 +11,7 @@ Then download the Rubin MPC parquet files:
 gcloud storage rsync gs://asteroid-institute-public/production/rubin/mpc/obs_sbn/daily/ ./rubin_mpc/parquet --recursive --exclude='^((?!\.parquet$).)*$'
 ```
 
-This will create the rubin_mpc folder.
+This will create the rubin_mpc folder.<br>
 The WrapperAnalysis folder must be saved in the same location as the rubin_mpc folder.
 
 ## Check the number of observations
@@ -26,8 +26,8 @@ Run:
 ```bash
 python3 run_preprocessing.py
 ```
-This script uses: Select_multiopp_split_plot.py and Select_numbered_split_plot.py.
-In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze. 
+This script uses: Select_multiopp_split_plot.py and Select_numbered_split_plot.py.<br>
+In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze.<br>
 Example: 
 ```bash
 REQUESTED = [ 
@@ -35,17 +35,17 @@ REQUESTED = [
 ("2026-04-27", "obs_sbn_X05_2026-04-27.parquet"), 
 ]
 ```
-After starting the script, it will ask:
-Run processing for {parquet_file(s)_number} non-zero parquet file(s)? [Y/N] 
+After starting the script, it will ask:<br>
+Run processing for {parquet_file(s)_number} non-zero parquet file(s)? [Y/N]<br>
 Enter:
 ```bash
 Y
 ```
 
-The preprocessing step:
-- classifies the asteroids into numbered asteroids and provisional asteroids;
-- creates lightcurve plots;
-- creates *_ALL.csv files.
+The preprocessing step:<br>
+- classifies the asteroids into numbered asteroids and provisional asteroids;<br>
+- creates lightcurve plots;<br>
+- creates *_ALL.csv files.<br>
 Note: If the code is stopped before finishing, running it again will skip the objects already analyzed and continue from where it stopped.
 
 ## Check the epoch and observation requirements
@@ -53,11 +53,11 @@ Run:
 ```bash
 python3 epochs.py
 ```
-This checks for:
-- objects with at least 3 epochs in 30-day epoch bins
-- objects with at least 30 observations in at least 2 bands
-It creates:
-- epochs.txt
+This checks for:<br>
+- objects with at least 3 epochs in 30-day epoch bins<br>
+- objects with at least 30 observations in at least 2 bands<br>
+It creates:<br>
+- epochs.txt<br>
 - found_objects.txt
 
 ## Split the selected objects
@@ -65,8 +65,8 @@ Run:
 ```bash
 python3 split_found_objects.py
 ```
-This splits the objects in found_objects.txt into:
-- choose_physical.txt, for objects with total observations >= 165, where both the Fourier and LSM analyses can be done;
+This splits the objects in found_objects.txt into:<br>
+- choose_physical.txt, for objects with total observations >= 165, where both the Fourier and LSM analyses can be done;<br>
 - choose_lsm.txt, for objects with total observations < 165, where only the LSM analysis can be done.
 
 ## Select NEAs and MBOs
