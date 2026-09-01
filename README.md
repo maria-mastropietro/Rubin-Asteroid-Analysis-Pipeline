@@ -12,7 +12,7 @@ gcloud storage rsync gs://asteroid-institute-public/production/rubin/mpc/obs_sbn
 ```
 
 This will create the rubin_mpc folder.<br>
-The Asteroid-Wrapper-Analysis-main folder must be saved in the same location as the rubin_mpc folder.
+The Rubin-Asteroid-Analysis-Pipeline-main folder must be saved in the same location as the rubin_mpc folder.
 
 ## Alternative to download the parquet files from the Asteroid Institute
 Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: ```https://b612.ai/rubin-mpc-downloads/``` and download the Daily Partitions parquet file.
@@ -25,7 +25,7 @@ rubin_mpc/
     └── YYYY-MM-DD/
         └── parquet/
             └── obs_sbn_X05_YYYY-MM-DD.parquet
-Asteroid-Wrapper-Analysis-main/
+Rubin-Asteroid-Analysis-Pipeline-main/
 └──Asteroid_LSM.py
 └──epochs.py
 ...
