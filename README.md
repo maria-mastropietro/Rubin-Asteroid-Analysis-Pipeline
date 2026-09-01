@@ -56,6 +56,7 @@ python3 epochs.py
 This checks for:<br>
 - objects with at least 3 epochs in 30-day epoch bins<br>
 - objects with at least 30 observations in at least 2 bands<br>
+
 It creates:<br>
 - epochs.txt<br>
 - found_objects.txt
@@ -95,7 +96,7 @@ This runs the wrapper Asteroid_LSM.py for the objects in choose_lsm.txt.
 Use base_period_days_before_doubling to force the Fourier on one peak period:
 ```bash
 best_days = (
-        try_float(info.get("best_period_days"))
+        try_float(info.get("base_period_days_before_doubling "))
 ```
 To not force it, use best_period_days:
 ```bash
