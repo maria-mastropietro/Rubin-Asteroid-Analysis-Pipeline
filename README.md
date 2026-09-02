@@ -57,12 +57,12 @@ python3 -m venv env_asteroid
 
 Activate it:
 
-Linux/macOS
+- Linux/macOS
 ```bash
 source env_asteroid/bin/activate
 ```
 
-Windows
+- Windows
 ```bash
 env_asteroid\Scripts\activate
 ```
