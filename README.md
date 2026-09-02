@@ -15,7 +15,9 @@ This will create the rubin_mpc folder.<br>
 The Rubin-Asteroid-Analysis-Pipeline-main folder must be saved in the same location as the rubin_mpc folder.
 
 ## Alternative to download the parquet files from the Asteroid Institute
-Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: ```https://b612.ai/rubin-mpc-downloads/``` and download the Daily Partitions parquet file.
+Alternatively, the parquet files can be downloaded manually from the Asteroid Institute website: ```https://b612.ai/rubin-mpc-downloads/```.
+
+From the download page, select the Daily Partitions parquet file corresponding to the date you want to analyze.
 
 If the files are downloaded manually, the folder structure must be created as:
 
