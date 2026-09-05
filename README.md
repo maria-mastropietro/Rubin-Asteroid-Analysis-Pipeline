@@ -164,14 +164,14 @@ Run:
 ```bash
 python3 run_physical_properties_batch.py
 ```
-This runs the wrapper Asteroid_physical_properties.py for the objects in choose_physical.txt.
+This runs the wrapper `Asteroid_physical_properties.py` for the objects in `choose_physical.txt`.
 
 ## Run the LSM-only analysis
 Run:
 ```bash
 python3 run_LSM.py
 ```
-This runs the wrapper Asteroid_LSM.py for the objects in choose_lsm.txt.
+This runs the wrapper `Asteroid_LSM.py` for the objects in `choose_lsm.txt`.
 
 # Notes:
 ## In Asteroid_physical_properties.py:
