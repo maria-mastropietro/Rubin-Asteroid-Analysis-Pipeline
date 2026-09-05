@@ -80,7 +80,7 @@ python3 check_length.py
 This prints the number of observations in each parquet file.
 
 ## Run the preprocessing
-In run_preprocessing.py, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze.<br>
+In `run_preprocessing.py`, edit the REQUESTED list (line 14) and add the parquet file(s) you want to analyze.<br>
 
 Example: 
 ```bash
@@ -96,15 +96,12 @@ python3 run_preprocessing.py
 
 After starting the script, it will ask:<br>
 Run processing for ```{parquet_file(s)_number} non-zero parquet file(s)? [Y/N]```<br>
-Enter:
-```bash
-Y
-```
+Enter `Y`.
 
 The preprocessing step:<br>
 - classifies the asteroids into numbered asteroids and provisional asteroids;<br>
 - creates lightcurve plots;<br>
-- creates *_ALL.csv files.<br>
+- creates `*_ALL.csv` files.<br>
 
 Note:
 If the code is stopped before finishing, running it again will skip the objects already analyzed and continue from where it stopped.
@@ -134,8 +131,8 @@ This checks for:<br>
 - objects with at least 30 observations in at least 2 bands<br>
 
 It creates:<br>
-- epochs.txt<br>
-- found_objects.txt
+- `epochs.txt`<br>
+- `found_objects.txt`
 
 ## Split the selected objects
 Run:
@@ -143,15 +140,15 @@ Run:
 python3 split_found_objects.py
 ```
 This splits the objects in found_objects.txt into:<br>
-- choose_physical.txt, for objects with total observations >= 165, where both the Fourier and LSM analyses can be done;<br>
-- choose_lsm.txt, for objects with total observations < 165, where only the LSM analysis can be done.
+- `choose_physical.txt`, for objects with total observations >= 165, where both the Fourier and LSM analyses can be done;<br>
+- `choose_lsm.txt`, for objects with total observations < 165, where only the LSM analysis can be done.
 
 ## Select NEAs and MBOs
 Run:
 ```bash
 python3 search_NEA_MBO.py
 ```
-This comments out the asteroids that are neither NEAs nor MBOs in choose_physical.txt and choose_lsm.txt.
+This comments out the asteroids that are neither NEAs nor MBOs in `choose_physical.txt` and `choose_lsm.txt`.
 
 ## Run the period analyses
 Before running the period-analysis scripts, check the contents of `choose_physical.txt` and `choose_lsm.txt`.
