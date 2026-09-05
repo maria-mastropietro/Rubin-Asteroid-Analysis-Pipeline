@@ -139,7 +139,7 @@ Run:
 ```bash
 python3 split_found_objects.py
 ```
-This splits the objects in found_objects.txt into:<br>
+This splits the objects in `found_objects.txt` into:<br>
 - `choose_physical.txt`, for objects with total observations >= 165, where both the Fourier and LSM analyses can be done;<br>
 - `choose_lsm.txt`, for objects with total observations < 165, where only the LSM analysis can be done.
 
@@ -175,14 +175,14 @@ This runs the wrapper `Asteroid_LSM.py` for the objects in `choose_lsm.txt`.
 
 # Notes:
 ## In Asteroid_physical_properties.py:
-Use base_period_days_before_doubling to force the Fourier on one peak period:
+Use `base_period_days_before_doubling` to force the Fourier on one peak period:
 ```bash
 best_days = (
     try_float(info.get("base_period_days_before_doubling "))
     ...
 )
 ```
-To not force it, use best_period_days:
+To not force it, use `best_period_days`:
 ```bash
 best_days = (
     try_float(info.get("best_period_days"))
